@@ -1,0 +1,39 @@
+import { createGlobalStyle, css } from "styled-components";
+import {
+  DarkThemeBackgroundColor,
+  DarkThemeTextColor,
+  LightThemeBackgroundColor,
+  LightThemeTextColor,
+} from "styles/Theme";
+
+interface GlobalStyleProps {
+  light?: boolean;
+}
+
+const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    ${({ light }) => {
+      return light
+        ? css`
+            background-color: ${LightThemeBackgroundColor};
+            color: ${LightThemeTextColor};
+          `
+        : css`
+            background-color: ${DarkThemeBackgroundColor};
+            color: ${DarkThemeTextColor};
+          `;
+    }}
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  }      
+`;
+
+export default GlobalStyle;
