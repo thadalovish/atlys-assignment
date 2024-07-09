@@ -19,7 +19,7 @@ const reducer: Reducer<AuthState, AuthAction> = (state, action) => {
     case HANDLE_LOGIN:
       return {
         ...state,
-        userDetails: action.userData.userName,
+        userDetails: action.userData,
         isLogin: action?.userData?.userName && true,
       };
     case HANDLE_LOGOUT:

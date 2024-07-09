@@ -16,7 +16,7 @@ const AppLayout = ({ children }: any) => {
   return (
     <ApplicationWrapper>
       <AppNavBar>
-        <Heading light={theme.light}>Create Post</Heading>
+        <Heading light={theme?.light}>Create Post</Heading>
         <ToggleAction>
           <Button
             handleClick={() => {

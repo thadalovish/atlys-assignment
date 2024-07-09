@@ -25,7 +25,7 @@ function App(): JSX.Element {
 
   return (
     <AppWrapper>
-      <GlobalStyle light={theme.light} />
+      <GlobalStyle light={theme?.light} />
       <AppLayout>
         <Suspense fallback={<div>loading</div>}>
           <Routes>

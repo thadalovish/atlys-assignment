@@ -12,6 +12,7 @@ const common = {
     font-size: 16px;
     font-weight: 400;
     line-height: 19.36px;
+    color: white;
   `,
 };
 
@@ -25,14 +26,21 @@ const lightTheme = {
       color 0.3s ease;
 
     &:hover {
-      background-color: #242e42;
-      border: 2px solid #242e42;
+      background-color: #1e1e25;
+      border: 2px solid #1e1e25;
     }
   `,
   input: css`
     background: #131319;
     border: 1.5px solid #131319;
+    color: white;
     border-radius: 4px;
+    &:focus {
+      outline: none;
+    }
+    &:focus-within {
+      border: 2px solid white;
+    }
   `,
 };
 
@@ -54,6 +62,16 @@ const darkTheme = {
     background: #27292d;
     border: 1.5px solid #35373b;
     border-radius: 4px;
+
+    &:focus {
+      outline: none;
+      color: white;
+    }
+
+    &:focus-within {
+      border: 2px solid #4a96ff;
+      color: white;
+    }
   `,
 };
 export const styleSheet = {

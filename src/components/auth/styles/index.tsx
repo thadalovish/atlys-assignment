@@ -21,9 +21,8 @@ export const ChangeFormText = styled.div`
   line-height: 16.94px;
   display: flex;
   align-items: center;
-      margin-left: 24px;
-    flex: 1;
-    width: 100%;
+  flex: 1;
+  width: 100%;
 }
 `;
 
@@ -60,11 +59,12 @@ export const FieldHelperText = styled.div`
 `;
 
 export const AuthSubHeading = styled.div<StyledAuthHeadingProps>`
-  ${({ light }) => `font-size: 14px;
+  ${({ light }) =>
+    `font-size: 14px;
   font-weight: 500;
   line-height: 16.94px;
   letter-spacing: 0.03em;
-  color: ${!light ? "#fff" : ""};
+  color: ${light ? "#fff" : "#6B6C70"};
   margin-bottom: 8px`};
 `;
 export const FieldWrapper = styled.div`
@@ -72,10 +72,10 @@ export const FieldWrapper = styled.div`
   font-weight: 500;
   line-height: 16.94px;
   letter-spacing: 0.03em;
-  margin-bottom: 16px;
+  margin-bottom: 22px;
 `;
 
-export const AuthHeading = styled.div<StyledAuthHeadingProps>`
+export const AuthHeading = styled.div`
   font-size: 18px;
   font-weight: 600;
   line-height: 21.78px;
@@ -88,4 +88,13 @@ export const FormWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
+`;
+
+export const ErrorText = styled.div`
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #dd5151;
+  margin-top: 4px;
+  margin-bottom: 4px;
 `;

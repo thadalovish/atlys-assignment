@@ -19,8 +19,8 @@ const AuthLayout = ({
   const theme = useThemeStateContext();
   return (
     <AuthStyleWrapper>
-      <AuthSubHeading>{subTitle}</AuthSubHeading>
-      <AuthHeading light={theme.light}>{title}</AuthHeading>
+      <AuthSubHeading light={theme?.light}>{subTitle}</AuthSubHeading>
+      <AuthHeading>{title}</AuthHeading>
       <FormWrapper>{children}</FormWrapper>
       <ChangeFormText>
         {isLoginScreen ? "Not registered yet?" : "Already have an account?"}

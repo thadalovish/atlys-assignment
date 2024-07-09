@@ -9,6 +9,9 @@ type ButtonProps = PropsWithChildren<{
   handleClick?: () => void;
   className?: string;
   style?: any;
+  type?: any;
+  value?: string;
+  disabled?: boolean;
 }> &
   StyledButtonProps;
 
@@ -18,11 +21,14 @@ export const StyledButton = styled.button<StyledButtonProps>`
 `;
 
 const Button: FC<ButtonProps> = (props) => {
-  const { className, style, children, handleClick } = props;
+  const { className, style, children, handleClick, type, value, disabled } =
+    props;
   const theme = useThemeStateContext();
-
   return (
     <StyledButton
+      type={type}
+      value={value}
+      disabled={disabled}
       className={className}
       style={style}
       onClick={handleClick}
