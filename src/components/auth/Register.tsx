@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ButtonWrapper } from "components/auth/styles";
 import Button from "components/common/style-components/Button";
 import FormField from "components/common/FormField";
 import AuthLayout from "components/auth/AuthLayout";
-import { emailRegex, passwordRegex } from "components/auth/constant";
+import { registerFormFields } from "components/auth/helperFunction";
 
 interface RegisterProps {
   isLoginScreen: boolean;
@@ -26,6 +26,7 @@ const Register: React.FC<RegisterProps> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormValues>();
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
   const onSubmit: SubmitHandler<RegisterFormValues> = (data) => {
     console.log("Registration form submitted successfully", data);
@@ -40,47 +41,32 @@ const Register: React.FC<RegisterProps> = ({
       handleToggleForm={handleToggleForm}
     >
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "inherit" }}>
-        <FormField
-          name="email"
-          control={control}
-          errors={errors.email}
-          rules={{
-            required: "Email is required",
-            pattern: {
-              value: emailRegex,
-              message: "Invalid email address",
-            },
-          }}
-          placeholder="Email"
-        />
-        <FormField
-          name="username"
-          control={control}
-          errors={errors.username}
-          rules={{
-            required: "Username is required",
-            minLength: {
-              value: 3,
-              message: "Username must be at least 3 characters long",
-            },
-          }}
-          placeholder="Username"
-        />
-        <FormField
-          name="password"
-          control={control}
-          errors={errors.password}
-          rules={{
-            required: "Password is required",
-            pattern: {
-              value: passwordRegex,
-              message:
-                "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.",
-            },
-          }}
-          placeholder="Password"
-          type="password"
-        />
+        {registerFormFields.map((field) => (
+          <FormField
+            key={field.name}
+            name={field.name}
+            control={control}
+            errors={errors[field.name as keyof RegisterFormValues]}
+            rules={field.rules}
+            placeholder={field.placeholder}
+            type={isVisible ? "text" : field.type}
+            icon={
+              <div
+                className={`${
+                  isVisible ? field?.icon?.openEye : field?.icon?.closeEye
+                }`}
+                style={{
+                  fontSize: "22px",
+                  fontWeight: "500",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setIsVisible((prev) => !prev);
+                }}
+              />
+            }
+          />
+        ))}
         <ButtonWrapper>
           <Button
             type="submit"

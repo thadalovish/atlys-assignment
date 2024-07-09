@@ -10,6 +10,7 @@
       "@store/*": ["src/app/store/*"],
       "@constants/*": ["src/app/constants/*"],
       "@context/*": ["src/app/context/*"],
+      "@assets/*": ["src/app/assets/*"],
       "@utils/*": ["src/app/utils/*"]
     },
     "allowJs": true,

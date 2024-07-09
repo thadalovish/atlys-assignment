@@ -14,6 +14,7 @@ interface FormFieldProps {
   rules?: object;
   placeholder: string;
   type?: string;
+  icon?: any;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -23,6 +24,7 @@ const FormField: React.FC<FormFieldProps> = ({
   rules,
   placeholder,
   type = "text",
+  icon,
 }) => {
   return (
     <FieldWrapper>
@@ -37,6 +39,7 @@ const FormField: React.FC<FormFieldProps> = ({
             {...field}
             placeholder={placeholder}
             style={{ width: "97%", height: "32px", padding: "6px" }}
+            icon={icon}
           />
         )}
       />

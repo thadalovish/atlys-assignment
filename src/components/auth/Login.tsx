@@ -1,14 +1,10 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ButtonWrapper } from "components/auth/styles";
 import Button from "components/common/style-components/Button";
 import FormField from "components/common/FormField";
 import AuthLayout from "components/auth/AuthLayout";
-import {
-  emailRegex,
-  usernameRegex,
-  passwordRegex,
-} from "components/auth/constant";
+import { loginFormFields } from "components/auth/helperFunction";
 
 interface LoginComponentProps {
   isLoginScreen: boolean;
@@ -29,25 +25,12 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>();
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
-  const validateUsernameOrEmail = (value: string) => {
-    if (!value) return "Username or Email is required";
-    if (!value.includes("@")) {
-      if (!usernameRegex.test(value)) {
-        return "Invalid username format";
-      }
-    } else {
-      if (!emailRegex.test(value)) {
-        return "Invalid email format";
-      }
-    }
-    return true;
-  };
-
-  const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
+  const onSubmit: SubmitHandler<LoginFormValues> = useCallback((data) => {
     console.log("Login form submitted successfully", data);
     // Add your login logic here
-  };
+  }, []);
 
   return (
     <AuthLayout
@@ -57,31 +40,32 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
       handleToggleForm={handleToggleForm}
     >
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "inherit" }}>
-        <FormField
-          name="username"
-          control={control}
-          errors={errors.username}
-          rules={{
-            required: "Username or Email is required",
-            validate: validateUsernameOrEmail,
-          }}
-          placeholder="Email or Username"
-        />
-        <FormField
-          name="password"
-          control={control}
-          errors={errors.password}
-          rules={{
-            required: "Password is required",
-            pattern: {
-              value: passwordRegex,
-              message:
-                "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character.",
-            },
-          }}
-          placeholder="Password"
-          type="password"
-        />
+        {loginFormFields.map((field) => (
+          <FormField
+            key={field.name}
+            name={field.name}
+            control={control}
+            errors={errors[field.name as keyof LoginFormValues]}
+            rules={field.rules}
+            placeholder={field.placeholder}
+            type={isVisible ? "text" : field.type}
+            icon={
+              <div
+                className={`${
+                  isVisible ? field?.icon?.openEye : field?.icon?.closeEye
+                }`}
+                style={{
+                  fontSize: "22px",
+                  fontWeight: "500",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setIsVisible((prev) => !prev);
+                }}
+              />
+            }
+          />
+        ))}
         <ButtonWrapper>
           <Button
             type="submit"

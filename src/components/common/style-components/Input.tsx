@@ -1,55 +1,47 @@
-import React, { forwardRef, type PropsWithChildren } from "react";
+import React, { forwardRef, PropsWithChildren } from "react";
 import styled from "styled-components";
 import { useThemeStateContext } from "context/theme";
 
 interface StyledInputProps {
   $theme?: any;
+  $hasIcon?: any;
 }
 
-type InputProps = PropsWithChildren<{
-  value?: string;
-  onChange?: any;
-  className?: string;
-  style?: any;
-  placeholder?: string;
-  type?: string;
-  name?: string;
-}> &
-  StyledInputProps;
+interface InputProps
+  extends PropsWithChildren<React.InputHTMLAttributes<HTMLInputElement>> {
+  icon?: React.ReactNode; // Icon component or any other React node
+}
 
 export const StyledInput = styled.input<StyledInputProps>`
-  ${(props) => props?.theme?.current?.input}
-  ${(props) => props?.theme?.input}
+  ${({ theme }) => theme?.current?.input}
+  ${({ theme }) => theme?.input}
+  padding-left: ${(props) =>
+    props.$hasIcon ? "36px" : "12px"}; /* Adjust padding for icon */
 `;
 
-const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
-  const {
-    className,
-    style,
-    value,
-    children,
-    placeholder,
-    onChange,
-    type,
-    name,
-  } = props;
-  const theme = useThemeStateContext();
+const IconContainer = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+`;
 
-  return (
-    <StyledInput
-      ref={ref}
-      name={name}
-      type={type}
-      className={className}
-      style={style}
-      onChange={onChange}
-      theme={theme}
-      placeholder={placeholder}
-      value={value}
-    >
-      {children}
-    </StyledInput>
-  );
-});
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ icon, ...rest }, ref) => {
+    const theme = useThemeStateContext();
+
+    return (
+      <div style={{ position: "relative" }}>
+        <StyledInput
+          ref={ref}
+          {...rest}
+          theme={theme}
+          $hasIcon={!!icon} // Add $hasIcon prop to adjust padding if icon is present
+        />
+        {icon && <IconContainer>{icon}</IconContainer>}
+      </div>
+    );
+  }
+);
 
 export default Input;

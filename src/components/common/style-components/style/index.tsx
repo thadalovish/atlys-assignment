@@ -62,7 +62,7 @@ const darkTheme = {
     background: #27292d;
     border: 1.5px solid #35373b;
     border-radius: 4px;
-
+    color: white;
     &:focus {
       outline: none;
       color: white;
