@@ -7,8 +7,11 @@ import FormField from "components/common/FormField";
 import AuthLayout from "components/auth/AuthLayout";
 import { registerFormFields } from "components/auth/helperFunction";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
-import { storeInLocal } from "utils/helper";
-import { handleAuthModalToggle, handleLogin } from "context/auth/reducer";
+import {
+  handleAuthModalToggle,
+  handleLogin,
+  handleRegisterNewUser,
+} from "context/auth/reducer";
 
 interface RegisterFormValues {
   email: string;
@@ -37,7 +40,7 @@ const Register = () => {
       setIsDuplicate(true);
     } else {
       setIsDuplicate(false);
-      storeInLocal("userRegister", [data, ...allUserDetailsRegister]);
+      dispatch(handleRegisterNewUser(data));
       dispatch(
         handleLogin({
           userName: data.username,

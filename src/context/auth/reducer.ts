@@ -11,6 +11,8 @@ import {
   HANDLE_CHANGE_SCREEN,
   HandleScreenToggle,
   HandleAuthModalToggle,
+  ADD_REGISTER_USER_DATA,
+  HandleRegisterNewUser,
 } from "context/auth/type";
 import { getFromLocal, removeFromLocal, storeInLocal } from "utils/helper";
 
@@ -50,6 +52,13 @@ const reducer: Reducer<AuthState, AuthAction> = (state, action) => {
         ...state,
         isLoginScreen: !state.isLoginScreen,
       };
+    case ADD_REGISTER_USER_DATA:
+      const dataToSet = [action.newUserDetail, ...allUserDetailsRegister];
+      storeInLocal("userRegister", dataToSet);
+      return {
+        ...state,
+        allUserDetailsRegister: dataToSet,
+      };
   }
 };
 
@@ -58,6 +67,13 @@ export default reducer;
 export const handleLogin = (userData: any): HandleLogin => ({
   type: HANDLE_LOGIN,
   userData,
+});
+
+export const handleRegisterNewUser = (
+  newUserDetail: any
+): HandleRegisterNewUser => ({
+  type: ADD_REGISTER_USER_DATA,
+  newUserDetail,
 });
 
 export const handleScreenToggle = (): HandleScreenToggle => ({

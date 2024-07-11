@@ -2,10 +2,16 @@ export const HANDLE_LOGIN = "HANDLE_LOGIN";
 export const HANDLE_LOGOUT = "HANDLE_LOGOUT";
 export const HANDLE_AUTH_MODAL_TOGGLE = "HANDLE_AUTH_MODAL_TOGGLE";
 export const HANDLE_CHANGE_SCREEN = "HANDLE_CHANGE_SCREEN";
+export const ADD_REGISTER_USER_DATA = "ADD_REGISTER_USER_DATA";
 
 export type Login = {
   userName: string;
   sessionTime: Date;
+};
+
+export type HandleRegisterNewUser = {
+  type: typeof ADD_REGISTER_USER_DATA;
+  newUserDetail: any;
 };
 
 export type HandleScreenToggle = {
@@ -38,4 +44,5 @@ export type AuthAction =
   | HandleLogin
   | HandleLogout
   | HandleAuthModalToggle
-  | HandleScreenToggle;
+  | HandleScreenToggle
+  | HandleRegisterNewUser;
