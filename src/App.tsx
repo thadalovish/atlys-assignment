@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useThemeStateContext } from "context/theme";
 import GlobalStyle, { AppWrapper } from "styles/GlobalStyle";
 import AppLayout from "components/common/AppLayout";

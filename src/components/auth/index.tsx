@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Login from "components/auth/Login";
 import Register from "components/auth/Register";
 import { useAuthStateContext } from "context/auth";
