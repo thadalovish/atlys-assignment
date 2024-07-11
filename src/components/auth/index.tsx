@@ -13,7 +13,7 @@ const AuthComponent = () => {
     if (isLogin) {
       navigate("/post");
     }
-  }, [isLogin]);
+  }, [isLogin, navigate]);
 
   return <>{isLoginScreen ? <Login /> : <Register />}</>;
 };

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ButtonWrapper, ErrorText } from "components/auth/styles";
 import Button from "components/common/style-components/Button";
@@ -26,7 +26,7 @@ const LoginComponent = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [isBadCred, setIsBadCred] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<LoginFormValues> = useCallback((data) => {
+  const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
     const filterData: any = [...allUserDetailsRegister].filter(
       (item: any) =>
         (item.username === data.username || item.email === data.username) &&
@@ -45,7 +45,7 @@ const LoginComponent = () => {
     } else {
       setIsBadCred(true);
     }
-  }, []);
+  };
 
   return (
     <AuthLayout title="Log into your account" subTitle="WELCOME BACK">
