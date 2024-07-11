@@ -1,29 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Login from "components/auth/Login";
 import Register from "components/auth/Register";
+import { useAuthStateContext } from "context/auth";
+import { useNavigate } from "react-router-dom";
 
 const AuthComponent = () => {
-  const [isLoginScreen, setIsLoginScreen] = useState(true);
+  const navigate = useNavigate();
+  const { isLogin, isLoginScreen } = useAuthStateContext();
 
-  const handleToggleForm = () => {
-    setIsLoginScreen((prev) => !prev);
-  };
+  useEffect(() => {
+    //don't want user to lost if login want him to be on post create page
+    if (isLogin) {
+      navigate("/post");
+    }
+  }, [isLogin]);
 
-  return (
-    <>
-      {isLoginScreen ? (
-        <Login
-          isLoginScreen={isLoginScreen}
-          handleToggleForm={handleToggleForm}
-        />
-      ) : (
-        <Register
-          isLoginScreen={isLoginScreen}
-          handleToggleForm={handleToggleForm}
-        />
-      )}
-    </>
-  );
+  return <>{isLoginScreen ? <Login /> : <Register />}</>;
 };
 
 export default AuthComponent;

@@ -1,50 +1,25 @@
-import React, { lazy, Suspense } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useThemeStateContext } from "context/theme";
-import { useAuthStateContext } from "context/auth";
 import GlobalStyle, { AppWrapper } from "styles/GlobalStyle";
 import AppLayout from "components/common/AppLayout";
-import PrivateRoute from "components/common/PrivateRoute";
-import Forbidden from "components/common/Forbidden";
-import UnAuthorized from "pages/UnAuthorized";
-
-const Home = lazy(() => import("pages/Home"));
-const AuthWrapper = lazy(() => import("pages/AuthWrapper"));
+import AuthModalView from "components/auth/AuthModalView";
+import AllRoutes from "routes";
+import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
+import { handleAuthModalToggle } from "context/auth/reducer";
 
 function App(): JSX.Element {
+  const dispatch = useAuthDispatchContext();
   const theme = useThemeStateContext();
-  const { isLogin } = useAuthStateContext();
+  const { isModalOpenForAuth } = useAuthStateContext();
 
-  const redirectUrl = isLogin ? "/post" : "/auth";
+  const closeModal = () => dispatch(handleAuthModalToggle(false));
 
   return (
     <AppWrapper>
-      <GlobalStyle light={theme?.light} />
+      <GlobalStyle light={theme.light} />
       <AppLayout>
-        <Suspense fallback={<div>loading</div>}>
-          <Routes>
-            <Route path="/" element={<Navigate to={redirectUrl} replace />} />
-            <Route
-              path="post/*"
-              element={
-                <PrivateRoute>
-                  <Home />
-                </PrivateRoute>
-              }
-            />
-            <Route path="auth/*" element={<AuthWrapper />} />
-            <Route path="un-auth/" element={<UnAuthorized />} />
-            <Route
-              path="/*"
-              element={
-                <Forbidden
-                  title="Page Not Found"
-                  subTitle="The page you are looking for does not exist."
-                />
-              }
-            />
-          </Routes>
-        </Suspense>
+        <AllRoutes />
+        <AuthModalView isModalOpen={isModalOpenForAuth} onClose={closeModal} />
       </AppLayout>
     </AppWrapper>
   );

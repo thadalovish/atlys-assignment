@@ -15,6 +15,7 @@ const CommentSection = ({ comment, fromChild = false, index }: any) => {
   return (
     <>
       <CommentSectionWrapper
+        //adding margin to see the child tree in comments
         style={{ marginLeft: fromChild ? `${index * 8 + 8}px` : "8px" }}
       >
         <CommentUserDetails>
@@ -31,17 +32,19 @@ const CommentSection = ({ comment, fromChild = false, index }: any) => {
           <ActionReplyWrapper>Reply</ActionReplyWrapper>
         </CommentLowerSectionWrapper>
       </CommentSectionWrapper>
-      {comment?.children?.length
-        ? comment?.children?.map((commentData: any, newIndex: number) => {
-            return (
-              <CommentSection
-                comment={commentData}
-                fromChild
-                index={index + newIndex + 1}
-              />
-            );
-          })
-        : ""}
+      {comment?.children?.length ? (
+        comment?.children?.map((commentData: any, newIndex: number) => {
+          return (
+            <CommentSection
+              comment={commentData}
+              fromChild
+              index={index + newIndex + 1}
+            />
+          );
+        })
+      ) : (
+        <></>
+      )}
     </>
   );
 };

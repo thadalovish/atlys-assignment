@@ -15,6 +15,10 @@ export const ApplicationWrapper = styled.div`
   flex: 1;
 `;
 
+export const ButtonWrapper = styled.div`
+  margin-right: 6px;
+`;
+
 export const AppNavBar = styled.div`
   display: flex;
   align-items: center;
@@ -45,7 +49,7 @@ export const AppViewer = styled.div<StyleAppViewerProps>`
 `;
 
 export const Heading = styled.div<StyleHeadingProps>`
-  ${({ light }) => `font-size: 14px;
+  ${({ light }: any) => `font-size: 14px;
   font-weight: 500;
   line-height: 16.94px;
   letter-spacing: 0.03em;

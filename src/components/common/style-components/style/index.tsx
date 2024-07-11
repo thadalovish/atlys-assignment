@@ -25,6 +25,11 @@ const lightTheme = {
       background-color: #1e1e25;
       border: 2px solid #1e1e25;
     }
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
   `,
   input: css`
     background: #131319;
@@ -49,6 +54,11 @@ const darkTheme = {
       background-color: #3979d1;
       border: 2px solid #3979d1;
     }
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
   `,
   input: css`
     background: #27292d;
@@ -66,6 +76,7 @@ const darkTheme = {
     }
   `,
 };
+
 export const styleSheet = {
   ...common,
   light: lightTheme,

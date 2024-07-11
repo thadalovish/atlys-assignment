@@ -7,13 +7,8 @@ import FormField from "components/common/FormField";
 import AuthLayout from "components/auth/AuthLayout";
 import { registerFormFields } from "components/auth/helperFunction";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
-import { storeInLocal } from "utils/session";
-import { handleLogin } from "context/auth/reducer";
-
-interface RegisterProps {
-  isLoginScreen: boolean;
-  handleToggleForm: () => void;
-}
+import { storeInLocal } from "utils/helper";
+import { handleAuthModalToggle, handleLogin } from "context/auth/reducer";
 
 interface RegisterFormValues {
   email: string;
@@ -21,10 +16,7 @@ interface RegisterFormValues {
   password: string;
 }
 
-const Register: React.FC<RegisterProps> = ({
-  isLoginScreen,
-  handleToggleForm,
-}) => {
+const Register = () => {
   const navigate = useNavigate();
   const {
     control,
@@ -52,17 +44,13 @@ const Register: React.FC<RegisterProps> = ({
           sessionTime: new Date(),
         })
       );
+      dispatch(handleAuthModalToggle(false));
       navigate("/post");
     }
   };
 
   return (
-    <AuthLayout
-      title="Create an account to continue"
-      subTitle="SIGN UP"
-      isLoginScreen={isLoginScreen}
-      handleToggleForm={handleToggleForm}
-    >
+    <AuthLayout title="Create an account to continue" subTitle="SIGN UP">
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "inherit" }}>
         {registerFormFields.map((field) => (
           <FormField

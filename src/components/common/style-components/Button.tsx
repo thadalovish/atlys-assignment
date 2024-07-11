@@ -4,7 +4,9 @@ import { useThemeStateContext } from "context/theme";
 
 interface StyledButtonProps {
   $theme?: any;
+  disabled?: boolean;
 }
+
 type ButtonProps = PropsWithChildren<{
   handleClick?: () => void;
   className?: string;
@@ -18,6 +20,13 @@ type ButtonProps = PropsWithChildren<{
 export const StyledButton = styled.button<StyledButtonProps>`
   ${(props) => props?.theme?.current?.button}
   ${(props) => props?.theme?.button}
+  ${(props) =>
+    props.disabled &&
+    `
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  `}
 `;
 
 const Button: FC<ButtonProps> = (props) => {

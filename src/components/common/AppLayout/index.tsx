@@ -10,6 +10,7 @@ import {
   Heading,
   ToggleAction,
   LogoutButton,
+  ButtonWrapper,
 } from "components/common/AppLayout/styles";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
 import { handleLogout } from "context/auth/reducer";
@@ -34,13 +35,24 @@ const AppLayout = ({ children }: any) => {
           Create Post
         </Heading>
         <ToggleAction>
-          <Button
-            handleClick={() => {
-              dispatch(handleThemeChange());
-            }}
-          >
-            {theme.light ? "dark" : "light"}
-          </Button>
+          <ButtonWrapper>
+            <Button
+              handleClick={() => {
+                authDispatch(handleLogout());
+              }}
+            >
+              Session Timeout
+            </Button>
+          </ButtonWrapper>
+          <ButtonWrapper>
+            <Button
+              handleClick={() => {
+                dispatch(handleThemeChange());
+              }}
+            >
+              {theme.light ? "dark" : "light"}
+            </Button>
+          </ButtonWrapper>
           {isLogin && (
             <LogoutButton
               onClick={() => {

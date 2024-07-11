@@ -5,6 +5,7 @@ if (
   process.env.REACT_APP_ENV &&
   ["PRODUCTION"].includes(`${process.env.REACT_APP_ENV}`)
 ) {
+  // add sentry credentials soon for tracking
   //   Sentry.init({
   //     dsn: "",
   //     environment: "",

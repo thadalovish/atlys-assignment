@@ -59,7 +59,7 @@ export const FieldHelperText = styled.div`
 `;
 
 export const AuthSubHeading = styled.div<StyledAuthHeadingProps>`
-  ${({ light }) =>
+  ${({ light }: any) =>
     `font-size: 14px;
   font-weight: 500;
   line-height: 16.94px;

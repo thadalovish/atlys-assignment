@@ -64,7 +64,7 @@ const Post = ({ postData }: any) => {
             })}
         </>
       ) : (
-        ""
+        <></>
       )}
     </PostWrapper>
   );

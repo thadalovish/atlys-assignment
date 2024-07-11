@@ -8,15 +8,14 @@ import {
   HighlightText,
 } from "components/auth/styles";
 import { useThemeStateContext } from "context/theme";
+import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
+import { handleScreenToggle } from "context/auth/reducer";
 
-const AuthLayout = ({
-  children,
-  title,
-  subTitle,
-  isLoginScreen,
-  handleToggleForm,
-}: any) => {
+const AuthLayout = ({ children, title, subTitle, handleToggleForm }: any) => {
   const theme = useThemeStateContext();
+  const { isLoginScreen } = useAuthStateContext();
+  const dispatch = useAuthDispatchContext();
+
   return (
     <AuthStyleWrapper>
       <AuthSubHeading light={theme?.light}>{subTitle}</AuthSubHeading>
@@ -26,7 +25,7 @@ const AuthLayout = ({
         {isLoginScreen ? "Not registered yet?" : "Already have an account?"}
         <HighlightText
           onClick={() => {
-            handleToggleForm();
+            dispatch(handleScreenToggle());
           }}
         >
           {isLoginScreen ? "Register →" : "Login →"}

@@ -6,7 +6,7 @@ import { store, history } from "store";
 import App from "App";
 import IndexWrapper from "components/IndexWrapper";
 import ThemeContextProvider from "context/theme";
-import CustomRouter from "router/CustomRouter";
+import CustomRouter from "routes/CustomRouter";
 import AuthContextProvider from "context/auth";
 
 const root = ReactDOM.createRoot(

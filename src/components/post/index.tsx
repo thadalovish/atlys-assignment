@@ -7,10 +7,12 @@ import {
 import CreatePost from "components/post/CreatePost";
 import Post from "components/post/Post";
 import { useAuthStateContext } from "context/auth";
-import { postData } from "components/post/constant";
+import { usePostStateContext } from "context/post";
 
 const HomeComponent = () => {
   const { userDetails } = useAuthStateContext();
+  const { allPostData } = usePostStateContext();
+
   return (
     <HomeComponentWrapper>
       <WelcomeText>Hello {userDetails?.userName}</WelcomeText>
@@ -19,7 +21,7 @@ const HomeComponent = () => {
         community 🤗
       </WelcomeHelperText>
       <CreatePost />
-      {postData?.map((post) => {
+      {allPostData?.map((post: any) => {
         return <Post postData={post} key={post.id} />;
       })}
     </HomeComponentWrapper>

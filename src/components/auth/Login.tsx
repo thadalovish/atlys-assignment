@@ -6,23 +6,15 @@ import FormField from "components/common/FormField";
 import AuthLayout from "components/auth/AuthLayout";
 import { loginFormFields } from "components/auth/helperFunction";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
-import { handleLogin } from "context/auth/reducer";
+import { handleAuthModalToggle, handleLogin } from "context/auth/reducer";
 import { useNavigate } from "react-router-dom";
-
-interface LoginComponentProps {
-  isLoginScreen: boolean;
-  handleToggleForm: () => void;
-}
 
 interface LoginFormValues {
   username: string;
   password: string;
 }
 
-const LoginComponent: React.FC<LoginComponentProps> = ({
-  isLoginScreen,
-  handleToggleForm,
-}) => {
+const LoginComponent = () => {
   const {
     control,
     handleSubmit,
@@ -48,6 +40,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
           sessionTime: new Date(),
         })
       );
+      dispatch(handleAuthModalToggle(false));
       navigate("/post");
     } else {
       setIsBadCred(true);
@@ -55,12 +48,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
   }, []);
 
   return (
-    <AuthLayout
-      title="Log into your account"
-      subTitle="WELCOME BACK"
-      isLoginScreen={isLoginScreen}
-      handleToggleForm={handleToggleForm}
-    >
+    <AuthLayout title="Log into your account" subTitle="WELCOME BACK">
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: "inherit" }}>
         {loginFormFields.map((field) => (
           <FormField

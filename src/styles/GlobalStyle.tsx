@@ -8,7 +8,7 @@ import {
 } from "styles/Theme";
 
 interface GlobalStyleProps {
-  light?: boolean;
+  light: boolean;
 }
 
 export const AppWrapper = styled.div`
@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    ${({ light }) => {
+    ${({ light }: any) => {
       return light
         ? css`
             background-color: ${LightThemeBackgroundColor};
