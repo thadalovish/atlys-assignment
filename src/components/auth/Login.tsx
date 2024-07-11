@@ -1,10 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ButtonWrapper } from "components/auth/styles";
+import { ButtonWrapper, ErrorText } from "components/auth/styles";
 import Button from "components/common/style-components/Button";
 import FormField from "components/common/FormField";
 import AuthLayout from "components/auth/AuthLayout";
 import { loginFormFields } from "components/auth/helperFunction";
+import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
+import { handleLogin } from "context/auth/reducer";
+import { useNavigate } from "react-router-dom";
 
 interface LoginComponentProps {
   isLoginScreen: boolean;
@@ -25,11 +28,30 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>();
-  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const navigate = useNavigate();
+  const { allUserDetailsRegister } = useAuthStateContext();
+  const dispatch = useAuthDispatchContext();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isBadCred, setIsBadCred] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<LoginFormValues> = useCallback((data) => {
-    console.log("Login form submitted successfully", data);
-    // Add your login logic here
+    const filterData: any = [...allUserDetailsRegister].filter(
+      (item: any) =>
+        (item.username === data.username || item.email === data.username) &&
+        item.password === data.password
+    );
+    if (filterData.length) {
+      setIsBadCred(false);
+      dispatch(
+        handleLogin({
+          userName: data.username,
+          sessionTime: new Date(),
+        })
+      );
+      navigate("/post");
+    } else {
+      setIsBadCred(true);
+    }
   }, []);
 
   return (
@@ -66,6 +88,11 @@ const LoginComponent: React.FC<LoginComponentProps> = ({
             }
           />
         ))}
+        {isBadCred ? (
+          <ErrorText>Bad Credentials Try With Different Credentials</ErrorText>
+        ) : (
+          <></>
+        )}
         <ButtonWrapper>
           <Button
             type="submit"

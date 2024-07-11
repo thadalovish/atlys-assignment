@@ -5,6 +5,10 @@ type StyleHeadingProps = {
   light: boolean;
 };
 
+type StyleAppViewerProps = {
+  without: boolean;
+};
+
 export const ApplicationWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -19,14 +23,25 @@ export const AppNavBar = styled.div`
   border-bottom: 2px solid #35373b;
 `;
 
-export const AppViewer = styled.div`
+export const LogoutButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 12px;
+  cursor: pointer;
+`;
+
+export const AppViewer = styled.div<StyleAppViewerProps>`
+  ${({ without }) => `
   display: flex;
   align-items: center;
   flex-direction: column;
   flex: 1;
   height: calc(100vh - 45px);
-  justify-content: center;
+  justify-content: ${!without ? "center" : "unset"};
+  margin-top: ${!without ? "unset" : "42px"};
   overflow-y: auto;
+`}
 `;
 
 export const Heading = styled.div<StyleHeadingProps>`

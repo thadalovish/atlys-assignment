@@ -1,4 +1,4 @@
-import { createGlobalStyle, css } from "styled-components";
+import { createGlobalStyle, css, styled } from "styled-components";
 import "../assets/icomoon/style.css";
 import {
   DarkThemeBackgroundColor,
@@ -10,6 +10,13 @@ import {
 interface GlobalStyleProps {
   light?: boolean;
 }
+
+export const AppWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+`;
 
 const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
   body {

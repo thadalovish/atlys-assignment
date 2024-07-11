@@ -3,7 +3,7 @@ export const HANDLE_LOGOUT = "HANDLE_LOGOUT";
 
 export type Login = {
   userName: string;
-  password: string;
+  sessionTime: Date;
 };
 
 export type HandleLogin = {
@@ -18,6 +18,7 @@ export type HandleLogout = {
 export type AuthState = {
   isLogin: boolean;
   userDetails: any;
+  allUserDetailsRegister: any;
 };
 
 export type AuthAction = HandleLogin | HandleLogout;

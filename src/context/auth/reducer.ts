@@ -1,28 +1,34 @@
 import { Reducer } from "react";
+import { allUserDetailsRegister } from "context/auth/constant";
 import {
   AuthAction,
   AuthState,
   HANDLE_LOGIN,
   HandleLogin,
-  Login,
   HANDLE_LOGOUT,
   HandleLogout,
 } from "context/auth/type";
+import { getFromLocal, removeFromLocal, storeInLocal } from "utils/session";
 
 export const initialState: AuthState = {
-  isLogin: false,
-  userDetails: null,
+  isLogin: getFromLocal("userDetail") ? true : false,
+  userDetails: getFromLocal("userDetail") || null,
+  allUserDetailsRegister: getFromLocal("userRegister")
+    ? getFromLocal("userRegister")
+    : storeInLocal("userRegister", allUserDetailsRegister),
 };
 
 const reducer: Reducer<AuthState, AuthAction> = (state, action) => {
   switch (action.type) {
     case HANDLE_LOGIN:
+      storeInLocal("userDetail", action.userData);
       return {
         ...state,
         userDetails: action.userData,
         isLogin: action?.userData?.userName && true,
       };
     case HANDLE_LOGOUT:
+      removeFromLocal("userDetail");
       return {
         ...state,
         userDetails: null,
@@ -33,7 +39,7 @@ const reducer: Reducer<AuthState, AuthAction> = (state, action) => {
 
 export default reducer;
 
-export const handleLogin = (userData: Login): HandleLogin => ({
+export const handleLogin = (userData: any): HandleLogin => ({
   type: HANDLE_LOGIN,
   userData,
 });

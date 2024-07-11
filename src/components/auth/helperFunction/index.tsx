@@ -69,9 +69,9 @@ export const registerFormFields = [
     placeholder: "Username",
     rules: {
       required: "Username is required",
-      minLength: {
-        value: 3,
-        message: "Username must be at least 3 characters long",
+      pattern: {
+        value: usernameRegex,
+        message: "Invalid username format",
       },
     },
   },

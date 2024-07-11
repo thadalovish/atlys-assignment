@@ -21,10 +21,6 @@ const lightTheme = {
     background: #131319;
     color: white;
     border: 2px solid #131319;
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
-
     &:hover {
       background-color: #1e1e25;
       border: 2px solid #1e1e25;
@@ -49,10 +45,6 @@ const darkTheme = {
     border: 2px solid #4a96ff;
     background: #4a96ff;
     color: white;
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease;
-
     &:hover {
       background-color: #3979d1;
       border: 2px solid #3979d1;

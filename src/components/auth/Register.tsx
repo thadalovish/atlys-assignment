@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ButtonWrapper } from "components/auth/styles";
+import { useNavigate } from "react-router-dom";
+import { ButtonWrapper, ErrorText } from "components/auth/styles";
 import Button from "components/common/style-components/Button";
 import FormField from "components/common/FormField";
 import AuthLayout from "components/auth/AuthLayout";
 import { registerFormFields } from "components/auth/helperFunction";
+import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
+import { storeInLocal } from "utils/session";
+import { handleLogin } from "context/auth/reducer";
 
 interface RegisterProps {
   isLoginScreen: boolean;
@@ -21,16 +25,35 @@ const Register: React.FC<RegisterProps> = ({
   isLoginScreen,
   handleToggleForm,
 }) => {
+  const navigate = useNavigate();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormValues>();
+  const { allUserDetailsRegister } = useAuthStateContext();
+  const dispatch = useAuthDispatchContext();
   const [isVisible, setIsVisible] = useState<boolean>(true);
+  const [isDuplicate, setIsDuplicate] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<RegisterFormValues> = (data) => {
-    console.log("Registration form submitted successfully", data);
-    // Add your registration logic here
+    const foundDuplicate = [...allUserDetailsRegister].filter(
+      (item: any) =>
+        item.email === data.email || item.username === data.username
+    );
+    if (foundDuplicate.length) {
+      setIsDuplicate(true);
+    } else {
+      setIsDuplicate(false);
+      storeInLocal("userRegister", [data, ...allUserDetailsRegister]);
+      dispatch(
+        handleLogin({
+          userName: data.username,
+          sessionTime: new Date(),
+        })
+      );
+      navigate("/post");
+    }
   };
 
   return (
@@ -67,6 +90,14 @@ const Register: React.FC<RegisterProps> = ({
             }
           />
         ))}
+        {isDuplicate ? (
+          <ErrorText>
+            Email or UserName already taken use different userName or Email to
+            Register
+          </ErrorText>
+        ) : (
+          <></>
+        )}
         <ButtonWrapper>
           <Button
             type="submit"

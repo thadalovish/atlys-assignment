@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?r6brfd');
-  src:  url('fonts/icomoon.eot?r6brfd#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?r6brfd') format('truetype'),
-    url('fonts/icomoon.woff?r6brfd') format('woff'),
-    url('fonts/icomoon.svg?r6brfd#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?47ntr8');
+  src:  url('fonts/icomoon.eot?47ntr8#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?47ntr8') format('truetype'),
+    url('fonts/icomoon.woff?47ntr8') format('woff'),
+    url('fonts/icomoon.svg?47ntr8#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -37,8 +37,35 @@
 .icon-eye:before {
   content: "\e903";
 }
+.icon-bubble2:before {
+  content: "\e96e";
+}
+.icon-user:before {
+  content: "\e971";
+}
+.icon-smile2:before {
+  content: "\e9e2";
+}
+.icon-sad:before {
+  content: "\e9e5";
+}
+.icon-wink:before {
+  content: "\e9e7";
+}
+.icon-grin:before {
+  content: "\e9e9";
+}
+.icon-cool2:before {
+  content: "\e9ec";
+}
+.icon-angry:before {
+  content: "\e9ed";
+}
 .icon-cancel-circle:before {
   content: "\ea0d";
+}
+.icon-exit:before {
+  content: "\ea14";
 }
 .icon-arrow-right:before {
   content: "\ea3c";

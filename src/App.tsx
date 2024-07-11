@@ -1,21 +1,15 @@
-import React, { lazy, Suspense, type FC } from "react";
+import React, { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import styled from "styled-components";
 import { useThemeStateContext } from "context/theme";
-
 import { useAuthStateContext } from "context/auth";
-import GlobalStyle from "styles/GlobalStyle";
+import GlobalStyle, { AppWrapper } from "styles/GlobalStyle";
 import AppLayout from "components/common/AppLayout";
+import PrivateRoute from "components/common/PrivateRoute";
+import Forbidden from "components/common/Forbidden";
+import UnAuthorized from "pages/UnAuthorized";
 
 const Home = lazy(() => import("pages/Home"));
 const AuthWrapper = lazy(() => import("pages/AuthWrapper"));
-
-const AppWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-`;
 
 function App(): JSX.Element {
   const theme = useThemeStateContext();
@@ -30,8 +24,25 @@ function App(): JSX.Element {
         <Suspense fallback={<div>loading</div>}>
           <Routes>
             <Route path="/" element={<Navigate to={redirectUrl} replace />} />
-            <Route path="post/*" element={<Home />} />
+            <Route
+              path="post/*"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
             <Route path="auth/*" element={<AuthWrapper />} />
+            <Route path="un-auth/" element={<UnAuthorized />} />
+            <Route
+              path="/*"
+              element={
+                <Forbidden
+                  title="Page Not Found"
+                  subTitle="The page you are looking for does not exist."
+                />
+              }
+            />
           </Routes>
         </Suspense>
       </AppLayout>
